@@ -1,0 +1,36 @@
+{
+  "database": {
+    "path": "data/jobgoblin.db",
+    "backup_retention_days": 30,
+    "auto_vacuum": true
+  },
+  "ollama": {
+    "host": "localhost",
+    "port": 11434,
+    "model": "dengcao/EmbeddingGemma",
+    "timeout": 30,
+    "max_retries": 3
+  },
+  "export": {
+    "default_format": "csv",
+    "output_directory": ".",
+    "include_timestamps": true,
+    "max_results_per_export": 3000
+  },
+  "api": {
+    "greenhouse_timeout": 30,
+    "lever_timeout": 30,
+    "max_jobs_per_fetch": 500,
+    "rate_limit_delay": 1.0
+  },
+  "matching": {
+    "similarity_threshold": 0.0,
+    "max_matches_per_resume": 100,
+    "score_precision": 3
+  },
+  "cli": {
+    "default_table_limit": 100,
+    "progress_bar": true,
+    "color_output": true
+  }
+}

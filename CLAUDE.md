@@ -25,7 +25,8 @@ SoupBoss is a comprehensive AI-powered job matching platform with both CLI and w
 #### **Web Interface (Recommended for Most Users)**
 ```bash
 # Start the web interface - provides full GUI experience
-./restart_webapp.sh
+uv run python webapp_manager.py restart
+# Or use the legacy script: ./restart_webapp.sh  
 # Access at: http://localhost:5000
 ```
 
@@ -169,13 +170,17 @@ SoupBoss is an intelligent job matching system with a complete CLI interface org
 **Access the web interface at: http://localhost:5000**
 
 ```bash
-# Quick restart (recommended)
+# New consolidated manager (recommended)
+uv run python webapp_manager.py restart  # Restart webapp
+uv run python webapp_manager.py start    # Start webapp
+uv run python webapp_manager.py stop     # Stop webapp
+uv run python webapp_manager.py status   # Check status
+
+# Legacy script (still works)
 ./restart_webapp.sh
 
-# Individual commands
-uv run python webapp.py              # Direct start
-uv run python start_webapp.py        # User-friendly start
-uv run python kill_webapp.py         # Kill existing processes only
+# Direct start (minimal output)
+uv run python webapp.py
 ```
 
 ### 🎯 Web Interface Overview

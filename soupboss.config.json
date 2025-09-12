@@ -1,6 +1,6 @@
 {
   "database": {
-    "path": "data/jobgoblin.db",
+    "path": "data/soupboss.db",
     "backup_retention_days": 30,
     "auto_vacuum": true
   },

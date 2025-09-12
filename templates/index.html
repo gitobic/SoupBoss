@@ -28,11 +28,21 @@
                 <img src="{{ url_for('static', filename='logo_v3-soupboss-trsp.png') }}" alt="SoupBoss Logo" height="40" class="me-2">
                 SoupBoss
             </a>
-            <small class="text-muted">Intelligent Job Matching System</small>
+            <small class="text-muted">Semantic Resume to Job Matching System</small>
         </div>
     </nav>
 
     <div class="container mt-4">
+        <!-- Help & System Status Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0">
+                <i class="fas fa-dashboard"></i> Dashboard
+            </h4>
+            <a href="/CLI_REFERENCE.md" target="_blank" class="btn btn-outline-info">
+                <i class="fas fa-question-circle"></i> Help & CLI Reference
+            </a>
+        </div>
+
         <!-- Status Card -->
         <div class="row mb-4">
             <div class="col-12">
@@ -57,6 +67,11 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab">
                     <i class="fas fa-chart-bar"></i> Results & Matches
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="backend-tab" data-bs-toggle="tab" data-bs-target="#backend" type="button" role="tab">
+                    <i class="fas fa-server"></i> Backend
                 </button>
             </li>
         </ul>
@@ -118,6 +133,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <h5><i class="fas fa-download"></i> Job Fetching & Processing</h5>
+                                <div class="alert alert-info mb-3">
+                                    <i class="fas fa-info-circle"></i>
+                                    <strong>Note:</strong> This interface fetches jobs for companies added through this webpage. 
+                                    For bulk loading multiple companies or fetching from file lists, use the 
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#cliCommandsModal" class="alert-link">command line interface</a> 
+                                    which is more efficient for batch operations.
+                                </div>
                                 <div class="row">
                                     <div class="col-md-3">
                                         <button type="button" class="btn btn-info w-100 mb-2" id="fetchJobsBtn">
@@ -152,7 +174,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h5><i class="fas fa-list"></i> Job Matches</h5>
-                            <div>
+                            <div class="d-flex align-items-center gap-2">
                                 <label for="sortBy" class="form-label me-2">Sort by:</label>
                                 <select class="form-select d-inline-block w-auto" id="sortBy">
                                     <option value="similarity">Similarity Score</option>
@@ -163,12 +185,104 @@
                                 <button class="btn btn-outline-primary ms-2" id="refreshMatchesBtn">
                                     <i class="fas fa-refresh"></i> Refresh
                                 </button>
+                                <!-- Export Dropdown -->
+                                <div class="dropdown ms-2">
+                                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="exportDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fas fa-download"></i> Export
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="exportDropdown">
+                                        <li><a class="dropdown-item" href="#" onclick="window.soupBossApp.exportMatches('csv')">
+                                            <i class="fas fa-file-csv text-success"></i> CSV File
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="window.soupBossApp.exportMatches('json')">
+                                            <i class="fas fa-file-code text-info"></i> JSON File
+                                        </a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="window.soupBossApp.exportMatches('html')">
+                                            <i class="fas fa-file-alt text-warning"></i> HTML Report
+                                        </a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div id="matchesContainer">
                             <div class="text-center text-muted">
                                 <i class="fas fa-search fa-3x mb-3"></i>
                                 <p>No job matches found. Complete the setup process and run matching to see results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Tab -->
+            <div class="tab-pane fade" id="backend" role="tabpanel">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- AI Model Selection -->
+                            <div class="col-12">
+                                <h5><i class="fas fa-brain"></i> AI Model Configuration</h5>
+                                <div class="card mb-4">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="modelSelect" class="form-label">Current Embedding Model:</label>
+                                                <select class="form-select" id="modelSelect">
+                                                    <option value="">Loading available models...</option>
+                                                </select>
+                                                <div class="form-text">Changes are automatically saved to configuration</div>
+                                            </div>
+                                            <div class="col-md-6 d-flex align-items-end">
+                                                <button type="button" class="btn btn-info w-100" id="refreshModelsBtn">
+                                                    <i class="fas fa-sync"></i> Refresh Model List
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Advanced Operations -->
+                            <div class="col-12">
+                                <h5><i class="fas fa-tools"></i> Advanced Operations</h5>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="d-grid">
+                                                    <button type="button" class="btn btn-warning" id="forceRegenerateBtn">
+                                                        <i class="fas fa-redo-alt"></i> Force Regenerate Embeddings
+                                                    </button>
+                                                    <small class="text-muted mt-2">
+                                                        <i class="fas fa-clock"></i> This operation may take several minutes for large datasets
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="d-grid">
+                                                    <button type="button" class="btn btn-danger" id="resetEnvironmentBtn">
+                                                        <i class="fas fa-trash-alt"></i> Reset Environment
+                                                    </button>
+                                                    <small class="text-muted mt-2">
+                                                        <i class="fas fa-exclamation-triangle"></i> Deletes all data, jobs, resumes, and embeddings
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="d-grid">
+                                                    <button type="button" class="btn btn-secondary" id="backupDataBtn">
+                                                        <i class="fas fa-download"></i> Backup Data
+                                                    </button>
+                                                    <small class="text-muted mt-2">
+                                                        <i class="fas fa-database"></i> Download database backup file
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -184,6 +298,66 @@
             <div class="card-body">
                 <div id="progressLog" style="height: 200px; overflow-y: auto; background-color: #f8f9fa; padding: 10px; border-radius: 4px;">
                     <div class="text-muted">Ready to start...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLI Commands Modal -->
+    <div class="modal fade" id="cliCommandsModal" tabindex="-1" aria-labelledby="cliCommandsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cliCommandsModalLabel">
+                        <i class="fas fa-terminal"></i> CLI Commands for Bulk Operations
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">For bulk operations and automation, use these CLI commands:</p>
+                    
+                    <h6><i class="fas fa-building"></i> Bulk Company Management</h6>
+                    <div class="bg-dark text-light p-3 rounded mb-3" style="font-family: 'Courier New', monospace;">
+                        <div># Add multiple companies individually</div>
+                        <div class="text-warning">uv run python main.py companies add spacex --source greenhouse</div>
+                        <div class="text-warning">uv run python main.py companies add leverdemo --source lever</div>
+                        <div class="text-warning">uv run python main.py companies add dynatrace1 --source smartrecruiters</div>
+                    </div>
+
+                    <h6><i class="fas fa-download"></i> Bulk Job Fetching</h6>
+                    <div class="bg-dark text-light p-3 rounded mb-3" style="font-family: 'Courier New', monospace;">
+                        <div># Fetch from companies file (one company per line)</div>
+                        <div class="text-success">uv run python main.py jobs fetch --source greenhouse --companies-file companies.txt</div>
+                        <br>
+                        <div># Fetch jobs for specific companies</div>
+                        <div class="text-success">uv run python main.py jobs fetch --source greenhouse --company spacex</div>
+                        <div class="text-success">uv run python main.py jobs fetch --source lever --company leverdemo</div>
+                    </div>
+
+                    <h6><i class="fas fa-cogs"></i> Complete Automation Workflow</h6>
+                    <div class="bg-dark text-light p-3 rounded mb-3" style="font-family: 'Courier New', monospace;">
+                        <div class="text-info"># 1. Add multiple companies and fetch all jobs</div>
+                        <div class="text-warning">uv run python main.py companies add company1 --source greenhouse</div>
+                        <div class="text-warning">uv run python main.py companies add company2 --source lever</div>
+                        <div class="text-success">uv run python main.py jobs fetch --source greenhouse --company company1</div>
+                        <div class="text-success">uv run python main.py jobs fetch --source lever --company company2</div>
+                        <br>
+                        <div class="text-info"># 2. Process and analyze</div>
+                        <div class="text-primary">uv run python main.py match generate</div>
+                        <div class="text-primary">uv run python main.py match run</div>
+                        <div class="text-secondary">uv run python main.py match export --format csv --output results.csv</div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Tip:</strong> Create a <code>companies.txt</code> file with one company name per line, then use <code>--companies-file companies.txt</code> for efficient bulk processing.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="CLI_REFERENCE.md" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-book"></i> Full CLI Reference
+                    </a>
                 </div>
             </div>
         </div>

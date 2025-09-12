@@ -165,9 +165,55 @@ main.py config
 └── info                       Show connection information for configured services
 ```
 
+## Web Interface Manager
+
+The consolidated `webapp_manager.py` provides comprehensive web application management with a clean CLI interface:
+
+```
+webapp_manager.py
+├── start                      Start the web application
+│   └── --quiet, -q           Suppress verbose output
+├── stop                       Stop all webapp processes
+│   └── --quiet, -q           Suppress verbose output
+├── restart                    Kill existing processes and restart webapp
+├── status                     Show webapp status and health check
+└── --help, -h                Show help and usage examples
+```
+
+### Web Interface Commands
+```bash
+# Start the web interface
+uv run python webapp_manager.py start
+
+# Start quietly (minimal output)
+uv run python webapp_manager.py start --quiet
+
+# Stop all webapp processes
+uv run python webapp_manager.py stop
+
+# Restart webapp (most common usage)
+uv run python webapp_manager.py restart
+
+# Check webapp status
+uv run python webapp_manager.py status
+
+# Legacy bash script (still works)
+./restart_webapp.sh
+
+# Direct webapp start (minimal features)
+uv run python webapp.py
+```
+
+### Web Interface Features
+- **Process Management**: Robust multi-method process killing and cleanup
+- **Health Checking**: Status monitoring with dependency validation
+- **Port Management**: Automatic port 5000 conflict resolution
+- **Error Handling**: Clear error messages with suggested solutions
+- **Network Access**: Available on localhost and network IP addresses
+
 ## Usage Examples
 
-### Basic Workflow
+### Basic CLI Workflow
 ```bash
 # Check system status
 uv run python main.py status
@@ -192,6 +238,26 @@ uv run python main.py match show 1
 
 # Generate a comprehensive report
 uv run python main.py report --format html
+```
+
+### Web Interface Workflow  
+```bash
+# Start the web interface
+uv run python webapp_manager.py restart
+
+# Access at http://localhost:5000
+# Use the GUI for:
+# - Upload resumes via drag-and-drop
+# - Test company job boards  
+# - Add companies and fetch jobs
+# - Generate embeddings with real-time progress
+# - View professional job match cards with sorting
+
+# Check webapp status
+uv run python webapp_manager.py status
+
+# Stop the webapp
+uv run python webapp_manager.py stop
 ```
 
 ### Bulk Operations
@@ -271,6 +337,7 @@ uv run python embedding_speed_test.py single nomic-embed-text --force
 
 ## Command Line Flags
 
+### Main CLI Flags
 - `--force` - Skip confirmation prompts in destructive operations / Force regeneration of existing embeddings
 - `--pdf` - Export results to PDF file format
 - `--full` - Show complete content instead of previews
@@ -283,6 +350,10 @@ uv run python embedding_speed_test.py single nomic-embed-text --force
 - `--save` - Save results to JSON file
 - `--jobs-only` - Process jobs only (skip resumes)
 - `--resumes-only` - Process resumes only (skip jobs)
+
+### Web Interface Manager Flags
+- `-q, --quiet` - Suppress verbose output during webapp operations
+- `-h, --help` - Show help message and usage examples
 
 ## File Formats Supported
 

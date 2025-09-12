@@ -3,28 +3,39 @@
   
   # SoupBoss
   
-  **Intelligent Job Matching System with Semantic Similarity Scoring**
+  **Semi-Intelligent Job Matching System with Semantic Similarity Scoring**
   
-  [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
-  [![Package Manager](https://img.shields.io/badge/package%20manager-uv-green.svg)](https://github.com/astral-sh/uv)
-  [![Ollama](https://img.shields.io/badge/AI-Ollama-orange.svg)](https://ollama.com)
-  
+  [![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg?style=plastic)](https://www.python.org/downloads/)
+  [![Package Manager](https://img.shields.io/badge/package%20manager-uv-green.svg?style=plastic)](https://github.com/astral-sh/uv)
+  [![Ollama](https://img.shields.io/badge/AI-Ollama-orange.svg?style=plastic)](https://ollama.com)
+ 	[![Claude](https://img.shields.io/badge/Claude-D97757?style=plastic&logo=claude&logoColor=white)](https://www.anthropic.com/claude-code)
+  [![Flask](https://img.shields.io/badge/flask-%23000.svg?style=plastic&logo=flask&logoColor=white)](https://flask.palletsprojects.com/en/stable/)
+ 
 </div>
+
+## Forward
+Job titles and descriptions vary wildly across companies. Am I a DevOps Engineer? An SRE? A Product Owner? Searching job boards often feels like guessing keywords and scrolling endlessly.
+
+SoupBoss solves this by semantically matching your resume against job postings. Instead of keyword searches, it uses embeddings (via Ollama) to find roles that best align with your background.
+
+#### Why the Name SoupBoss?
+
+Think of job matching like making soup:
+- The ingredients are skills, experience, and job requirements
+- The recipe is how they come together
+- SoupBoss is the chef — mixing, tasting, and serving up the best matches
+
+Instead of forcing you to pick search terms, it stirs everything together to surface roles that “taste right” for your background.
+
+
+| What SoupBoss is **Not** |  SoupBoss **Is** |
+|------------------------------|--------------------------|
+| - ❌ An auto-downloader of job postings <br> - ❌ An auto-submitter of applications <br> - ❌ A tool that links back to postings | 1. Import (fetch) job postings <br> 2. Add your resume(s) <br> 3. Generate embeddings for both <br> 4. Run the matcher to surface top fits <br> 5. Apply directly via the company site |
 
 ## Overview
 
-SoupBoss is an intelligent job matching system that leverages AI-powered semantic similarity to connect resumes with job opportunities. It features both a **modern web interface** and a **powerful CLI** for different use cases, processing job postings from multiple sources with sophisticated AI matching and comprehensive reporting.
+SoupBoss is an intelligent job matching system that leverages AI-powered semantic similarity to connect resumes with job opportunities. It features both a **flask web interface** and a **CLI** for different use cases, processing job postings from multiple sources with sophisticated AI matching and comprehensive reporting.
 
-**Key Features:**
-- 🌐 **Modern Web Interface** - Professional job cards with real-time progress and remote access
-- 🔍 **Multi-source job ingestion** from Greenhouse, Lever, SmartRecruiters APIs
-- 📄 **Multi-format resume processing** (PDF, DOCX, TXT, Markdown) with drag-and-drop upload
-- 🤖 **AI-powered semantic matching** using local Ollama embeddings with 74%+ accuracy
-- 📊 **Professional reporting** in CSV, JSON, and HTML formats with interactive sorting
-- 🛠️ **Complete CLI interface** with 40+ commands across 7 groups for automation
-- 🗄️ **Vector database** with SQLite and similarity search optimization
-- ⚡ **Real-time updates** via WebSocket with smart error handling
-- 🔧 **Dual interface** - Web GUI for daily use, CLI for scripting and advanced features
 
 ## Prerequisites
 
@@ -37,10 +48,7 @@ SoupBoss is an intelligent job matching system that leverages AI-powered semanti
 
 **⚠️ CRITICAL: SoupBoss requires Ollama running locally on your machine.**
 
-SoupBoss connects directly to Ollama (default: `localhost:11434`) for all AI operations. This provides:
-- **Privacy**: All processing happens locally
-- **Control**: Choose your preferred embedding model
-- **Performance**: Direct access without API limitations
+SoupBoss connects directly to Ollama (default: `localhost:11434`) for all AI operations. It could be converted to using API's.  
 
 ```bash
 # Install Ollama from https://ollama.com
@@ -64,13 +72,6 @@ ollama pull bge-large
 # http://localhost:5000
 ```
 
-**The web interface provides:**
-- ✅ **Visual workflow** with drag-and-drop resume upload
-- ✅ **Real-time progress** for job fetching and AI processing
-- ✅ **Professional job cards** with color-coded similarity scores
-- ✅ **Interactive sorting** by similarity, company, title, or date
-- ✅ **Remote access** from any device on your network
-- ✅ **Smart error handling** with automatic recovery suggestions
 
 ### ⚡ CLI Interface (Power Users & Automation)
 
@@ -103,7 +104,7 @@ uv run python main.py test-embedding
 8. **View Results**: Switch to "Results & Matches" tab to see professional job cards
 9. **Sort & Filter**: Use dropdown to sort by similarity, company, title, or date
 
-### ⚡ CLI Workflow (Complete Automation)
+### ⚡ CLI Workflow
 
 **Command-line power user guide:**
 
@@ -147,14 +148,14 @@ uv run python main.py maintenance stats
 
 | Feature | Web Interface | CLI Interface |
 |---------|---------------|---------------|
-| **Ease of Use** | 🟢 Beginner-friendly, visual | 🟡 Requires command knowledge |
-| **Resume Upload** | ✅ Drag-and-drop, instant | 📁 File paths required |
-| **Progress Tracking** | ✅ Real-time WebSocket updates | 📊 Terminal progress bars |
-| **Results Display** | ✅ Beautiful cards, interactive | 📋 Table format, scriptable |
-| **Error Handling** | ✅ Smart suggestions, auto-fix | 🔍 Manual troubleshooting |
-| **Remote Access** | ✅ Any device on network | 🖥️ Server SSH access only |
-| **Batch Operations** | ⚡ Manual, step-by-step | ✅ Fully scriptable automation |
-| **Advanced Features** | 🔧 Core features only | ✅ All 40+ CLI commands |
+| **Ease of Use** | Beginner-friendly, visual | Requires command knowledge |
+| **Resume Upload** | Drag-and-drop, instant | File paths required |
+| **Progress Tracking** | Real-time WebSocket updates | Terminal progress bars |
+| **Results Display** | Beautiful cards, interactive | Table format, scriptable |
+| **Error Handling** | Smart suggestions, auto-fix | Manual troubleshooting |
+| **Remote Access** | Any device on network | Server SSH access only |
+| **Batch Operations** | Manual, step-by-step | Fully scriptable automation |
+| **Advanced Features** | Core features only | All 40+ CLI commands |
 
 **Recommendation**: Use web interface for daily job matching, CLI for automation and advanced operations.
 
@@ -229,12 +230,28 @@ soupboss/
 
 ### Data Flow
 
-```
-Job APIs → Ingestion → SQLite Database ← Resume Files
-    ↓                      ↓                ↑
-Ollama Embeddings ←→ Vector Storage ←→ Similarity Matching
-    ↓                                       ↓
-Reports & Analysis ←← Match Results ←←←←←←←←←┘
+```mermaid
+graph TD
+    A[**Job APIs**<br/>Greenhouse, Lever,<br>SmartRecruiters] --> B[Ingestion Engine]
+    C[**Resume Files**<br/>PDF, DOCX, TXT, MD] --> D[**SQLite Database**<br/>with Vector Extensions]
+    B --> D
+    
+    D --> E[**Ollama AI Service**<br/>Local Embedding Generation]
+    E --> F[**Vector Storage**<br/>384 or 768-dim embeddings]
+    F --> G[**Similarity Matching**<br/>Cosine similarity scoring]
+    
+    G --> H[**Match Results**<br/>Ranked by similarity]
+    H --> I[**Reports & Analysis**<br/>CSV, JSON, HTML exports]
+    H --> J[**Web Interface**<br/>Interactive job cards]
+    H --> K[**CLI Tools**<br/>Automation & scripting]
+    
+    style A fill:#e1f5fe
+    style C fill:#f3e5f5
+    style E fill:#fff3e0
+    style G fill:#e8f5e8
+    style I fill:#fce4ec
+    style J fill:#f1f8e9
+    style K fill:#e3f2fd
 ```
 
 ## Command Groups
@@ -248,13 +265,12 @@ Reports & Analysis ←← Match Results ←←←←←←←←←┘
 | **maintenance** | System upkeep | `stats`, `clear-*`, `backup` | Database maintenance |
 | **config** | Configuration | `show`, `set`, `validate` | System settings |
 
-## Supported Integrations
+## Supported Integrations / Formats
 
 ### Job Board APIs
 - **Greenhouse**: `https://boards-api.greenhouse.io/v1/boards/{company}/jobs`
 - **Lever**: `https://api.lever.co/v0/postings/{company}`
 - **SmartRecruiters**: `https://api.smartrecruiters.com/v1/companies/{company}/postings`
-- **Disney Data**: Custom JSON import from Workday scraper
 
 ### Resume Formats
 - **PDF** (.pdf) - Full text extraction
@@ -274,6 +290,7 @@ SoupBoss uses a flexible configuration system:
 
 ```bash
 # Environment variables (.env file)
+# Note: These setting can also be set in the soupboss.config.json file
 OLLAMA_HOST=localhost
 OLLAMA_PORT=11434
 OLLAMA_MODEL=nomic-embed-text
@@ -382,27 +399,13 @@ uv run python main.py match speed-test --models "nomic-embed-text,bge-large"
 uv run python main.py match generate --time --force
 ```
 
-## 🚀 Development Status
-
-**✅ Complete & Production Ready:**
-- ✅ **Modern Web Interface** - Professional job cards, real-time updates, remote access
-- ✅ **Multi-source job ingestion** - Greenhouse, Lever, SmartRecruiters APIs
-- ✅ **Resume processing** - PDF, DOCX, TXT, MD with drag-and-drop upload
-- ✅ **AI-powered semantic matching** - 74%+ accuracy with Ollama integration  
-- ✅ **Complete CLI interface** - 40+ commands across 7 groups
-- ✅ **Professional reporting** - CSV, JSON, HTML, PDF export formats
-- ✅ **Model benchmarking** - Performance comparison and switching
-- ✅ **Real-time communication** - WebSocket updates and progress monitoring
-- ✅ **Smart error handling** - Automatic detection and recovery suggestions
-- ✅ **Dual interface architecture** - Web for daily use, CLI for automation
-
-**🚧 Future Enhancements:**
+**Future Enhancements:**
 - Enhanced model comparison and analysis
-- Automated job scraping improvements
+- Automated job scraping
 - Additional job board integrations
 - Advanced filtering and search capabilities
 
-**📊 Current Capabilities:**
+**Current Capabilities:**
 - **Scale**: Handles 1000+ job postings efficiently
 - **Speed**: Real-time processing with progress tracking
 - **Accuracy**: 74%+ similarity matching accuracy

@@ -191,3 +191,40 @@ body {
     50% { opacity: 0.5; }
     100% { opacity: 1; }
 }
+
+/* Status Items */
+.status-item {
+    text-align: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.status-item i {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.status-item strong {
+    font-size: 1.3rem;
+    display: block;
+}
+
+.status-item small {
+    font-size: 0.75rem;
+    margin-top: 3px;
+    word-break: break-word;
+}
+
+.status-clickable {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.status-clickable:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

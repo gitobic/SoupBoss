@@ -485,12 +485,19 @@ def match():
 @click.option("--jobs-only", is_flag=True, help="Generate embeddings for jobs only")
 @click.option("--resumes-only", is_flag=True, help="Generate embeddings for resumes only")
 @click.option("--force", is_flag=True, help="Force regeneration of existing embeddings")
-def generate_embeddings(jobs_only, resumes_only, force):
+@click.option("--time", "-t", is_flag=True, help="Show timing information for embedding generation")
+@click.option("--model", help="Use specific model instead of default")
+def generate_embeddings(jobs_only, resumes_only, force, time, model):
     """Generate embeddings for jobs and resumes."""
+    import time as time_module
     from .matching import get_intelligence_engine
     
     try:
-        engine = get_intelligence_engine()
+        # Use specific model if provided
+        engine = get_intelligence_engine(model_name=model) if model else get_intelligence_engine()
+        
+        # Track timing if requested
+        start_time = time_module.time() if time else None
         
         if jobs_only:
             job_count = engine.embedding_pipeline.generate_job_embeddings(force_regenerate=force)
@@ -501,6 +508,18 @@ def generate_embeddings(jobs_only, resumes_only, force):
         else:
             job_count, resume_count = engine.generate_all_embeddings(force_regenerate=force)
             console.print(f"[green]Generated {job_count} job embeddings and {resume_count} resume embeddings[/green]")
+        
+        # Show timing information if requested
+        if time and start_time:
+            total_time = time_module.time() - start_time
+            total_items = (job_count if jobs_only else 0) + (resume_count if resumes_only else 0) + (job_count + resume_count if not jobs_only and not resumes_only else 0)
+            console.print(f"\n[yellow]⏱️  Timing Information:[/yellow]")
+            console.print(f"Total time: {total_time:.2f} seconds")
+            if total_items > 0:
+                console.print(f"Average time per item: {total_time/total_items:.3f} seconds")
+                console.print(f"Items per second: {total_items/total_time:.2f}")
+            current_model = model if model else engine.model_name
+            console.print(f"Model used: {current_model}")
         
         # Show updated stats
         stats = engine.get_embedding_stats()
@@ -698,6 +717,148 @@ def compare_models(models, force, save):
         
     except Exception as e:
         console.print(f"[red]Error comparing models: {e}[/red]")
+        raise click.Abort()
+
+
+@match.command("speed-test")
+@click.option("--models", help="Comma-separated list of models to test (default: all available)")
+@click.option("--force", is_flag=True, help="Force regeneration of existing embeddings")
+@click.option("--jobs-only", is_flag=True, help="Test jobs only")
+@click.option("--resumes-only", is_flag=True, help="Test resumes only")
+@click.option("--save", help="Save speed test results to JSON file")
+def speed_test_models(models, force, jobs_only, resumes_only, save):
+    """Run speed tests for embedding generation across multiple models.
+    
+    This command tests the embedding generation speed for different models by running 
+    the equivalent of 'match generate --time --model <model>' for each specified model.
+    
+    Results show:
+    • Total time to generate embeddings
+    • Average time per embedding
+    • Items processed per second
+    • Success rate
+    """
+    import time as time_module
+    import json
+    from datetime import datetime
+    from .embedding_evaluation import get_model_evaluator
+    from .matching import get_intelligence_engine
+    
+    try:
+        evaluator = get_model_evaluator()
+        
+        # Parse models list
+        if models:
+            models_to_test = [m.strip() for m in models.split(',')]
+        else:
+            models_to_test = evaluator.available_models
+        
+        if not models_to_test:
+            console.print("[red]No embedding models available. Make sure Ollama is running with embedding models.[/red]")
+            return
+        
+        # Validate models exist
+        invalid_models = [m for m in models_to_test if m not in evaluator.available_models]
+        if invalid_models:
+            console.print(f"[red]Invalid models: {', '.join(invalid_models)}[/red]")
+            console.print("Use 'match list-models' to see available models")
+            return
+        
+        console.print(f"[bold cyan]Running embedding speed test for {len(models_to_test)} models[/bold cyan]")
+        console.print(f"Models: {', '.join(models_to_test)}")
+        console.print()
+        
+        speed_results = []
+        
+        for model_name in models_to_test:
+            console.print(f"[cyan]🏃 Testing model: {model_name}[/cyan]")
+            
+            try:
+                engine = get_intelligence_engine(model_name=model_name)
+                start_time = time_module.time()
+                
+                # Run embedding generation similar to match generate
+                if jobs_only:
+                    job_count = engine.embedding_pipeline.generate_job_embeddings(force_regenerate=force)
+                    resume_count = 0
+                elif resumes_only:
+                    resume_count = engine.embedding_pipeline.generate_resume_embeddings(force_regenerate=force) 
+                    job_count = 0
+                else:
+                    job_count, resume_count = engine.generate_all_embeddings(force_regenerate=force)
+                
+                total_time = time_module.time() - start_time
+                total_items = job_count + resume_count
+                
+                # Calculate metrics
+                avg_time_per_item = total_time / total_items if total_items > 0 else 0
+                items_per_second = total_items / total_time if total_time > 0 else 0
+                
+                result = {
+                    'model_name': model_name,
+                    'job_count': job_count,
+                    'resume_count': resume_count, 
+                    'total_items': total_items,
+                    'total_time': total_time,
+                    'avg_time_per_item': avg_time_per_item,
+                    'items_per_second': items_per_second
+                }
+                speed_results.append(result)
+                
+                console.print(f"[green]✓ {model_name}: {total_items} items in {total_time:.2f}s ({items_per_second:.2f} items/sec)[/green]")
+                
+            except Exception as e:
+                console.print(f"[red]✗ Failed speed test for {model_name}: {e}[/red]")
+                continue
+        
+        if not speed_results:
+            console.print("[red]No successful speed tests completed[/red]")
+            return
+        
+        # Display results table
+        console.print("\n[bold cyan]Speed Test Results[/bold cyan]")
+        
+        from rich.table import Table
+        table = Table(title="Embedding Generation Speed Comparison")
+        table.add_column("Model", style="bold")
+        table.add_column("Items", style="cyan")
+        table.add_column("Total Time (s)", style="green")
+        table.add_column("Avg Time/Item (s)", style="yellow")
+        table.add_column("Items/Second", style="magenta")
+        
+        for result in speed_results:
+            table.add_row(
+                result['model_name'],
+                f"{result['total_items']} ({result['job_count']}J, {result['resume_count']}R)",
+                f"{result['total_time']:.2f}",
+                f"{result['avg_time_per_item']:.3f}",
+                f"{result['items_per_second']:.2f}"
+            )
+        
+        console.print(table)
+        
+        # Find and display fastest model
+        if len(speed_results) > 1:
+            fastest = min(speed_results, key=lambda x: x['avg_time_per_item'] if x['avg_time_per_item'] > 0 else float('inf'))
+            console.print(f"\n[bold green]🏆 Fastest model: {fastest['model_name']} ({fastest['avg_time_per_item']:.3f}s per item)[/bold green]")
+        
+        # Save results if requested
+        if save:
+            save_data = {
+                'test_date': datetime.now().isoformat(),
+                'test_type': 'jobs_only' if jobs_only else 'resumes_only' if resumes_only else 'both',
+                'force_regenerate': force,
+                'models_tested': len(speed_results),
+                'results': speed_results
+            }
+            
+            with open(save, 'w') as f:
+                json.dump(save_data, f, indent=2)
+            
+            console.print(f"[green]✓ Saved speed test results to {save}[/green]")
+        
+    except Exception as e:
+        console.print(f"[red]Error running speed test: {e}[/red]")
         raise click.Abort()
 
 

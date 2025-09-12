@@ -1,0 +1,134 @@
+{
+  "test_date": "2025-09-12T00:14:48.116147",
+  "test_type": "both",
+  "force_regenerate": true,
+  "models_tested": 14,
+  "results": [
+    {
+      "model_name": "all-minilm:22m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 37.73830604553223,
+      "avg_time_per_item": 0.03484608129781369,
+      "items_per_second": 28.697631491284557
+    },
+    {
+      "model_name": "all-minilm:33m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 37.13148736953735,
+      "avg_time_per_item": 0.03428576857759682,
+      "items_per_second": 29.166620480936952
+    },
+    {
+      "model_name": "bge-large:335m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 37.23032832145691,
+      "avg_time_per_item": 0.03437703446117905,
+      "items_per_second": 29.08918746697799
+    },
+    {
+      "model_name": "bge-m3:567m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 40.677953004837036,
+      "avg_time_per_item": 0.03756043675423549,
+      "items_per_second": 26.623758571903064
+    },
+    {
+      "model_name": "dengcao/embeddinggemma:300m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 55.570448875427246,
+      "avg_time_per_item": 0.051311587142592104,
+      "items_per_second": 19.488775453798663
+    },
+    {
+      "model_name": "embeddinggemma:300m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 60.76974368095398,
+      "avg_time_per_item": 0.05611241337114864,
+      "items_per_second": 17.821368569297192
+    },
+    {
+      "model_name": "granite-embedding:278m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 62.263038635253906,
+      "avg_time_per_item": 0.05749126374446344,
+      "items_per_second": 17.39394709507151
+    },
+    {
+      "model_name": "granite-embedding:30m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.02534627914429,
+      "avg_time_per_item": 0.058195148918877455,
+      "items_per_second": 17.183562866966355
+    },
+    {
+      "model_name": "jina/jina-embeddings-v2-base-en",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.18484568595886,
+      "avg_time_per_item": 0.05834242445610237,
+      "items_per_second": 17.14018588227189
+    },
+    {
+      "model_name": "mxbai-embed-large:335m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.242511510849,
+      "avg_time_per_item": 0.05839567083180886,
+      "items_per_second": 17.124557107669826
+    },
+    {
+      "model_name": "nomic-embed-text:v1.5",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.41513776779175,
+      "avg_time_per_item": 0.058555067190943444,
+      "items_per_second": 17.07794129479997
+    },
+    {
+      "model_name": "snowflake-arctic-embed:137m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.47994089126587,
+      "avg_time_per_item": 0.05861490387005159,
+      "items_per_second": 17.060507379095696
+    },
+    {
+      "model_name": "snowflake-arctic-embed:335m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.28028082847595,
+      "avg_time_per_item": 0.05843054554799257,
+      "items_per_second": 17.11433618532004
+    },
+    {
+      "model_name": "snowflake-arctic-embed2:568m",
+      "job_count": 1082,
+      "resume_count": 1,
+      "total_items": 1083,
+      "total_time": 63.31148600578308,
+      "avg_time_per_item": 0.05845935919278216,
+      "items_per_second": 17.105900813970393
+    }
+  ]
+}

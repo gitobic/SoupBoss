@@ -87,7 +87,9 @@ main.py match
 ├── generate                   Generate embeddings for jobs and resumes
 │   ├── --jobs-only            Generate embeddings for jobs only
 │   ├── --resumes-only         Generate embeddings for resumes only
-│   └── --force                Force regeneration of existing embeddings
+│   ├── --force                Force regeneration of existing embeddings
+│   ├── --time, -t             Show timing information for embedding generation
+│   └── --model                Use specific model instead of default
 ├── run                        Run similarity matching between resumes and jobs
 │   ├── --resume-id            Specific resume to match against
 │   ├── --job-ids              Comma-separated list of job IDs to match against
@@ -106,6 +108,12 @@ main.py match
 │   ├── --models               Comma-separated list of models to compare
 │   ├── --force                Force regeneration of embeddings
 │   └── --save                 Save results to JSON file
+├── speed-test                 Run speed tests for embedding generation across multiple models
+│   ├── --models               Comma-separated list of models to test (default: all available)
+│   ├── --force                Force regeneration of existing embeddings
+│   ├── --jobs-only            Test jobs only
+│   ├── --resumes-only         Test resumes only
+│   └── --save                 Save speed test results to JSON file
 ├── switch-model               Switch to a different embedding model
 │   ├── model_name             Model name [argument]
 │   └── --generate             Generate embeddings for new model immediately
@@ -225,14 +233,56 @@ uv run python main.py match export --format html --output matches.html
 uv run python main.py report --format html --output report.html
 ```
 
+### Embedding Speed Testing
+```bash
+# Test embedding generation speed with timing info
+uv run python main.py match generate --time --model nomic-embed-text
+
+# Run speed test across all available models
+uv run python main.py match speed-test
+
+# Test specific models and save results
+uv run python main.py match speed-test --models "nomic-embed-text,bge-small-en-v1.5" --save speed_results.json
+
+# Test jobs only with force regeneration for accurate timing
+uv run python main.py match speed-test --jobs-only --force
+
+# Compare model performance with comprehensive analysis
+uv run python main.py match compare-models --models "model1,model2" --save comparison.json
+
+# List available embedding models
+uv run python main.py match list-models
+```
+
+### Standalone Speed Testing Script
+```bash
+# List available models for testing
+uv run python embedding_speed_test.py list
+
+# Test all available models  
+uv run python embedding_speed_test.py test
+
+# Test specific models
+uv run python embedding_speed_test.py test --models "nomic-embed-text,bge-small-en-v1.5" --save results.json
+
+# Test single model with force regeneration
+uv run python embedding_speed_test.py single nomic-embed-text --force
+```
+
 ## Command Line Flags
 
-- `--force` - Skip confirmation prompts in destructive operations
+- `--force` - Skip confirmation prompts in destructive operations / Force regeneration of existing embeddings
 - `--pdf` - Export results to PDF file format
 - `--full` - Show complete content instead of previews
 - `--preview` - Show content previews in list commands
 - `-o, --output` - Specify output file path
 - `-f, --companies-file` - Specify file containing list of companies
+- `-t, --time` - Show timing information for embedding generation
+- `--model` - Use specific embedding model instead of default
+- `--models` - Comma-separated list of models to test/compare
+- `--save` - Save results to JSON file
+- `--jobs-only` - Process jobs only (skip resumes)
+- `--resumes-only` - Process resumes only (skip jobs)
 
 ## File Formats Supported
 

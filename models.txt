@@ -1,0 +1,225 @@
+  Model
+    architecture        bert      
+    parameters          22.57M    
+    context length      512       
+    embedding length    384       
+    quantization        F16       
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_ctx    256    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert      
+    parameters          33.21M    
+    context length      512       
+    embedding length    384       
+    quantization        F16       
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_ctx    256    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert       
+    parameters          334.09M    
+    context length      512        
+    embedding length    1024       
+    quantization        F16        
+
+  Capabilities
+    embedding    
+
+  License
+    MIT License                        
+    Copyright (c) [year] [fullname]    
+    ...                                
+
+  Model
+    architecture        bert       
+    parameters          566.70M    
+    context length      8192       
+    embedding length    1024       
+    quantization        F16        
+
+  Capabilities
+    embedding    
+
+  License
+    MIT License                        
+    Copyright (c) [year] [fullname]    
+    ...                                
+
+  Model
+    architecture        gemma3     
+    parameters          307.58M    
+    context length      2048       
+    embedding length    768        
+    quantization        BF16       
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_ctx      2048    
+    num_batch    2048    
+
+  License
+    Gemma Terms of Use               
+    Last modified: March 24, 2025    
+    ...                              
+
+  Model
+    architecture        gemma3     
+    parameters          307.58M    
+    context length      2048       
+    embedding length    768        
+    quantization        BF16       
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_batch    2048    
+    num_ctx      2048    
+
+  License
+    Gemma Terms of Use               
+    Last modified: March 24, 2025    
+    ...                              
+
+  Model
+    architecture        bert       
+    parameters          277.45M    
+    context length      512        
+    embedding length    768        
+    quantization        F16        
+
+  Capabilities
+    embedding    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert      
+    parameters          30.15M    
+    context length      512       
+    embedding length    384       
+    quantization        F16       
+
+  Capabilities
+    embedding    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        jina-bert-v2    
+    parameters          136.78M         
+    context length      8192            
+    embedding length    768             
+    quantization        F16             
+
+  Capabilities
+    embedding    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert       
+    parameters          334.09M    
+    context length      512        
+    embedding length    1024       
+    quantization        F16        
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_ctx    512    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        nomic-bert    
+    parameters          136.73M       
+    context length      2048          
+    embedding length    768           
+    quantization        F16           
+
+  Capabilities
+    embedding    
+
+  Parameters
+    num_ctx    8192    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        nomic-bert    
+    parameters          136.73M       
+    context length      2048          
+    embedding length    768           
+    quantization        F16           
+
+  Capabilities
+    embedding    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert       
+    parameters          334.09M    
+    context length      512        
+    embedding length    1024       
+    quantization        F16        
+
+  Capabilities
+    embedding    
+
+  License
+    Apache License               
+    Version 2.0, January 2004    
+    ...                          
+
+  Model
+    architecture        bert       
+    parameters          566.70M    
+    context length      8192       
+    embedding length    1024       
+    quantization        F16        
+
+  Capabilities
+    embedding    
+

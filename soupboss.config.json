@@ -7,7 +7,7 @@
   "ollama": {
     "host": "localhost",
     "port": 11434,
-    "model": "dengcao/EmbeddingGemma",
+    "model": "embeddinggemma:300m",
     "timeout": 30,
     "max_retries": 3
   },

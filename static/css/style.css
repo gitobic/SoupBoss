@@ -1,0 +1,184 @@
+/* SoupBoss Web App Styles */
+
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* Progress Log Styles */
+#progressLog {
+    font-family: 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.4;
+}
+
+.log-entry {
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.log-entry.success {
+    color: #198754;
+}
+
+.log-entry.error {
+    color: #dc3545;
+}
+
+.log-entry.info {
+    color: #0d6efd;
+}
+
+.log-entry.warning {
+    color: #fd7e14;
+}
+
+/* Job Match Cards */
+.job-match-card {
+    border-left: 4px solid #0d6efd;
+    transition: transform 0.2s;
+}
+
+.job-match-card:hover {
+    transform: translateY(-2px);
+}
+
+.similarity-score {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.similarity-high {
+    color: #198754;
+}
+
+.similarity-medium {
+    color: #fd7e14;
+}
+
+.similarity-low {
+    color: #dc3545;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Button Loading State */
+.btn.loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -8px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: rgba(255, 255, 255, 0.8);
+    animation: spin 1s ease-in-out infinite;
+}
+
+/* Tab Content */
+.tab-content {
+    min-height: 400px;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Company Test Results */
+.test-result {
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 10px;
+}
+
+.test-result.success {
+    background-color: #d1edff;
+    border: 1px solid #0d6efd;
+    color: #0d6efd;
+}
+
+.test-result.error {
+    background-color: #f8d7da;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .btn-group.d-flex {
+        flex-direction: column;
+    }
+    
+    .btn-group.d-flex .btn {
+        margin-bottom: 5px;
+    }
+    
+    .container {
+        padding: 0 15px;
+    }
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.status-online {
+    background-color: #198754;
+}
+
+.status-offline {
+    background-color: #dc3545;
+}
+
+.status-loading {
+    background-color: #fd7e14;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}

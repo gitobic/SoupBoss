@@ -20,6 +20,9 @@ dependencies = [
     "reportlab>=4.4.3",
     "tqdm>=4.67.1",
     "argparse>=1.4.0",
+    "flask>=3.1.2",
+    "flask-socketio>=5.5.1",
+    "psutil>=7.0.0",
 ]
 
 [project.scripts]

@@ -13,6 +13,10 @@
  
 </div>
 
+## Overview
+
+SoupBoss is an intelligent job matching system that leverages AI-powered semantic similarity to connect resumes with job opportunities. It features both a **flask web interface** and a **CLI** for different use cases, processing job postings from multiple sources with sophisticated AI matching and comprehensive reporting.
+
 ## Forward
 Job titles and descriptions vary wildly across companies. Am I a DevOps Engineer? An SRE? A Product Owner? Searching job boards often feels like guessing keywords and scrolling endlessly.
 
@@ -32,9 +36,16 @@ Instead of forcing you to pick search terms, it stirs everything together to sur
 |------------------------------|--------------------------|
 | - ❌ An auto-downloader of job postings <br> - ❌ An auto-submitter of applications <br> - ❌ A tool that links back to postings | 1. Import (fetch) job postings <br> 2. Add your resume(s) <br> 3. Generate embeddings for both <br> 4. Run the matcher to surface top fits <br> 5. Apply directly via the company site |
 
-## Overview
+## Screenshots 
 
-SoupBoss is an intelligent job matching system that leverages AI-powered semantic similarity to connect resumes with job opportunities. It features both a **flask web interface** and a **CLI** for different use cases, processing job postings from multiple sources with sophisticated AI matching and comprehensive reporting.
+| Web Interface |  CLI  |
+|------------------------------|--------------------------|
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-01.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-01.png" width=400 />   |
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-02.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-02.png" width=400 />   |
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-03.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-05.png" width=400 />   |
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-04.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-04.png" width=400 />   |
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-05.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-03.png" width=400 />   |
+|   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/web-06.png" width=400 />   |   <img src="https://raw.githubusercontent.com/gitobic/SoupBoss/main/img/cli-06.png" width=400 />   |
 
 
 ## Prerequisites
@@ -144,21 +155,6 @@ uv run python main.py report --format html --output my_matches.html
 uv run python main.py maintenance stats
 ```
 
-### 🆚 Interface Comparison
-
-| Feature | Web Interface | CLI Interface |
-|---------|---------------|---------------|
-| **Ease of Use** | Beginner-friendly, visual | Requires command knowledge |
-| **Resume Upload** | Drag-and-drop, instant | File paths required |
-| **Progress Tracking** | Real-time WebSocket updates | Terminal progress bars |
-| **Results Display** | Beautiful cards, interactive | Table format, scriptable |
-| **Error Handling** | Smart suggestions, auto-fix | Manual troubleshooting |
-| **Remote Access** | Any device on network | Server SSH access only |
-| **Batch Operations** | Manual, step-by-step | Fully scriptable automation |
-| **Advanced Features** | Core features only | All 40+ CLI commands |
-
-**Recommendation**: Use web interface for daily job matching, CLI for automation and advanced operations.
-
 ### Bulk Operations
 
 For processing multiple companies or large datasets:
@@ -175,41 +171,6 @@ uv run python main.py resumes add /resumes/*.pdf
 
 # Export all matches to CSV
 uv run python main.py match export --format csv --output all_matches.csv
-```
-
-## Embedding Model Performance
-
-SoupBoss supports multiple embedding models through Ollama. Based on comprehensive benchmarking with 1,083 items (1,082 jobs + 1 resume):
-
-| Model | Speed (items/sec) | Time per Item (s) | Total Time (63s) | Embedding Dimensions |
-|-------|------------------|-------------------|------------------|-------------------|
-| **mstute/snowflake-arctic-embed-m** | **17.13** | **0.058** | 63.23s | 768 |
-| **bge-large** | 17.11 | 0.058 | 63.29s | 1024 |
-| **bge-m3** | 17.12 | 0.058 | 63.26s | 1024 |
-| **granite-embedding:278m** | 17.11 | 0.058 | 63.31s | 768 |
-| **granite-embedding** | 17.09 | 0.059 | 63.37s | 768 |
-| **nomic-embed-text** | 17.10 | 0.058 | 63.34s | 768 |
-| **sellerscrisp/jina-embeddings-v4** | 17.13 | 0.058 | 63.23s | 512 |
-| **dengcao/EmbeddingGemma** | 17.08 | 0.059 | 63.39s | 3584 |
-| **mxbai-embed-large** | 17.03 | 0.059 | 63.58s | 1024 |
-
-**Recommendations:**
-- **Best Overall**: `snowflake-arctic-embed-m` - fastest with good quality
-- **Most Popular**: `nomic-embed-text` - reliable and widely used
-- **High Dimension**: `dengcao/EmbeddingGemma` - 3584 dimensions for detailed analysis
-- **Balanced**: `bge-large` - good speed with 1024 dimensions
-
-### Run Your Own Benchmarks
-
-```bash
-# Test all available models
-uv run python main.py match speed-test --save my_results.json
-
-# Compare specific models
-uv run python main.py match speed-test --models "nomic-embed-text,bge-large" --force
-
-# Test with timing details
-uv run python main.py match generate --time --model bge-large --force
 ```
 
 ## Architecture
@@ -364,53 +325,6 @@ uv run python main.py maintenance reset-system --force
 - **[CLI_REFERENCE.md](CLI_REFERENCE.md)** - Complete command reference with examples
 - **[CLAUDE.md](CLAUDE.md)** - Claude Code integration and development guide
 
-## Troubleshooting
-
-### Common Issues
-
-**Ollama Connection Failed:**
-```bash
-# Check if Ollama is running
-curl http://localhost:11434/api/tags
-
-# Start Ollama if not running
-ollama serve
-
-# Test connection through SoupBoss
-uv run python main.py test-embedding
-```
-
-**Package Installation Issues:**
-```bash
-# Ensure you're using uv (not pip)
-which uv
-
-# Clean reinstall
-rm -rf .venv
-uv sync
-```
-
-**Embedding Generation Slow:**
-```bash
-# Test different models for speed
-uv run python main.py match speed-test --models "nomic-embed-text,bge-large"
-
-# Monitor system resources during generation
-uv run python main.py match generate --time --force
-```
-
-**Future Enhancements:**
-- Enhanced model comparison and analysis
-- Automated job scraping
-- Additional job board integrations
-- Advanced filtering and search capabilities
-
-**Current Capabilities:**
-- **Scale**: Handles 1000+ job postings efficiently
-- **Speed**: Real-time processing with progress tracking
-- **Accuracy**: 74%+ similarity matching accuracy
-- **Access**: Network-accessible web interface + full CLI
-- **Privacy**: 100% local processing with no external AI APIs
 
 ---
 

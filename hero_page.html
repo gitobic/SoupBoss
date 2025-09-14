@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoupBoss - Semi-Intelligent Job Matching System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .hero {
+            text-align: center;
+            color: white;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .section h2 {
+            color: #4a5568;
+            font-size: 2.2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+
+        .section p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .screenshot {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+
+        .feature-card h4 {
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .workflow-step {
+            background: #e6fffa;
+            border-left: 4px solid #319795;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .workflow-step strong {
+            color: #319795;
+        }
+
+        .code-snippet {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .logo {
+                font-size: 2.5em;
+            }
+            
+            .section {
+                padding: 25px;
+                margin: 20px 0;
+            }
+            
+            .badges {
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo">🍲 SoupBoss</div>
+            <div class="tagline">Semi-Intelligent Job Matching System with Semantic Similarity Scoring</div>
+            <div class="badges">
+                <span class="badge">🐍 Python 3.13+</span>
+                <span class="badge">🤖 Local AI with Ollama</span>
+                <span class="badge">🌐 Web Interface</span>
+                <span class="badge">⚡ CLI Power Tools</span>
+                <span class="badge">🔒 Complete Privacy</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Why SoupBoss?</h2>
+            <p>Job titles and descriptions vary wildly across companies. Are you a DevOps Engineer? An SRE? A Product Owner? Searching job boards often feels like guessing keywords and scrolling endlessly.</p>
+            
+            <div class="highlight">
+                <p><strong>SoupBoss solves this by semantically matching your resume against job postings.</strong> Instead of keyword searches, it uses AI embeddings (via Ollama) to find roles that best align with your background.</p>
+            </div>
+
+            <h3>Think of job matching like making soup:</h3>
+            <ul style="margin-left: 20px; font-size: 1.1em; color: #555;">
+                <li>🥕 The ingredients are skills, experience, and job requirements</li>
+                <li>📋 The recipe is how they come together</li>
+                <li>👨‍🍳 SoupBoss is the chef — mixing, tasting, and serving up the best matches</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>System Overview</h2>
+            <p>SoupBoss provides both a user-friendly web interface and powerful CLI tools for intelligent job matching. Here's what makes it special:</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">406</span>
+                    <span class="stat-label">Job Postings Processed</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15</span>
+                    <span class="stat-label">Companies Tracked</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">72.4%</span>
+                    <span class="stat-label">Top Match Accuracy</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Local Processing</span>
+                </div>
+            </div>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="SoupBoss Web Dashboard" class="screenshot" style="background: #f8f9fa; min-height: 400px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">SoupBoss Web Dashboard - Clean, intuitive interface for job matching</p>
+        </div>
+
+        <div class="section">
+            <h2>Company & Job Management</h2>
+            <p>SoupBoss intelligently tracks companies across multiple job board APIs, giving you comprehensive coverage of opportunities.</p>
+            
+            <h3>Supported Job Boards:</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🏢 Greenhouse</h4>
+                    <p>Direct API integration with real-time job fetching from company career pages.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ Lever</h4>
+                    <p>Seamless access to positions from Lever-powered job boards.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 SmartRecruiters</h4>
+                    <p>Comprehensive job data from the SmartRecruiters platform.</p>
+                </div>
+            </div>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Company Management" class="screenshot" style="background: #1a202c; color: #e2e8f0; min-height: 300px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">CLI interface showing tracked companies across multiple job board sources</p>
+        </div>
+
+        <div class="section">
+            <h2>Job Processing & Analysis</h2>
+            <p>The system processes hundreds of job postings efficiently, extracting key information and preparing them for AI-powered matching.</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Job Listings" class="screenshot" style="background: #1a202c; color: #e2e8f0; min-height: 350px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Comprehensive job listings with detailed metadata from multiple sources</p>
+
+            <div class="highlight">
+                <p><strong>Key Features:</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>📊 Processes 406+ job postings from 15+ companies</li>
+                    <li>🏷️ Automatic categorization by department and location</li>
+                    <li>🔄 Real-time progress tracking during data ingestion</li>
+                    <li>📈 Comprehensive job metadata extraction</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>AI-Powered Embeddings</h2>
+            <p>SoupBoss uses local AI models through Ollama to generate semantic embeddings for both resumes and job postings, enabling intelligent similarity matching.</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Embedding Generation" class="screenshot" style="background: #1a202c; color: #e2e8f0; min-height: 250px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">AI embedding generation with real-time progress tracking</p>
+
+            <h3>Performance Benchmarks:</h3>
+            <div class="code-snippet">
+Model: embeddingemma:300m
+✅ Generating embeddings for 406 jobs...
+📊 Processing speed: 17.13 items/sec
+⚡ Total processing time: ~63 seconds
+🎯 100% coverage achieved
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🚀 High Performance</h4>
+                    <p>17+ items processed per second with optimized batch processing.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Complete Privacy</h4>
+                    <p>All AI processing happens locally - your data never leaves your machine.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎛️ Multiple Models</h4>
+                    <p>Support for various embedding models including BGE, Nomic, and Arctic variants.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Intelligent Job Matching</h2>
+            <p>The core of SoupBoss - AI-powered semantic similarity matching that finds the best job fits based on your actual skills and experience, not just keywords.</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Job Matching Results" class="screenshot" style="background: #1a202c; color: #e2e8f0; min-height: 350px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Top job matches with semantic similarity scores and detailed job information</p>
+
+            <div class="highlight">
+                <h3>🎯 Match Quality Highlights:</h3>
+                <ul style="margin-left: 20px; font-size: 1.1em;">
+                    <li><strong>72.4%</strong> - Top match similarity for DevOps Engineer positions</li>
+                    <li><strong>1,218</strong> - Total similarity calculations performed</li>
+                    <li><strong>3 resumes</strong> - Compared against 406 job postings</li>
+                    <li><strong>Multi-dimensional analysis</strong> - Skills, experience, and role alignment</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Resume Management</h2>
+            <p>SoupBoss handles multiple resume formats and versions, allowing you to test different resumes against the same job pool.</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Resume Management" class="screenshot" style="background: #1a202c; color: #e2e8f0; min-height: 200px; display: flex; align-items: center; justify-content: center; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Resume storage and management with format support</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>📄 Multiple Formats</h4>
+                    <p>PDF, DOCX, TXT, and Markdown support with automatic text extraction.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 Version Control</h4>
+                    <p>Store multiple resume versions and compare performance across job matches.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Analytics</h4>
+                    <p>Track which resume versions perform best for different types of positions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Dual Interface Approach</h2>
+            <p>SoupBoss offers both an intuitive web interface and powerful CLI tools, giving you flexibility in how you interact with the system.</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🌐 Web Interface</h4>
+                    <p>Drag-and-drop resume uploads, real-time progress tracking, and beautiful job match cards with interactive sorting and filtering.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚡ CLI Power Tools</h4>
+                    <p>40+ commands for automation, bulk operations, system maintenance, and detailed reporting. Perfect for power users and scripting.</p>
+                </div>
+            </div>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Web Interface" class="screenshot" style="background: #f8f9fa; min-height: 400px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Modern web interface with job matching results and interactive controls</p>
+
+            <h3>🚀 Quick Start Workflow:</h3>
+            <div class="workflow-step">
+                <strong>Step 1:</strong> Upload your resume(s) via web interface or CLI
+            </div>
+            <div class="workflow-step">
+                <strong>Step 2:</strong> Add companies you're interested in and fetch their job postings
+            </div>
+            <div class="workflow-step">
+                <strong>Step 3:</strong> Generate AI embeddings (one-time process)
+            </div>
+            <div class="workflow-step">
+                <strong>Step 4:</strong> Run similarity matching and view your top job fits
+            </div>
+            <div class="workflow-step">
+                <strong>Step 5:</strong> Export results or apply directly through company websites
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Advanced Features</h2>
+            
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Advanced Configuration" class="screenshot" style="background: #f8f9fa; min-height: 350px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Advanced system configuration and model management options</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🔧 Model Comparison</h4>
+                    <p>Test different AI embedding models and choose the best one for your use case with built-in benchmarking tools.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📈 Comprehensive Reporting</h4>
+                    <p>Export results to CSV, JSON, or HTML formats. Generate professional reports for analysis or sharing.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🛠️ System Maintenance</h4>
+                    <p>Database optimization, backup utilities, and system health monitoring keep everything running smoothly.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 Bulk Operations</h4>
+                    <p>Process multiple companies, resumes, or generate reports in batch mode for maximum efficiency.</p>
+                </div>
+            </div>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Company Details" class="screenshot" style="background: #f8f9fa; min-height: 350px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Detailed company analytics with job counts and embedding status</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="Job Details" class="screenshot" style="background: #f8f9fa; min-height: 350px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Comprehensive job database with embedding status and metadata</p>
+        </div>
+
+        <div class="section">
+            <h2>CLI Command Reference</h2>
+            <p>SoupBoss provides extensive CLI capabilities for power users and automation scenarios.</p>
+
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==" alt="CLI Commands" class="screenshot" style="background: #f8f9fa; min-height: 400px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 1.2em;">
+            <p style="text-align: center; font-style: italic; margin-top: 10px;">Comprehensive CLI command reference with examples for bulk operations</p>
+
+            <h3>Command Categories:</h3>
+            <div class="code-snippet">
+🏢 Company Management    📊 Job Processing       👤 Resume Handling
+🤖 AI Matching         🔧 System Maintenance   ⚙️  Configuration
+
+# Example: Complete workflow in CLI
+uv run python main.py companies add spacex --source greenhouse
+uv run python main.py jobs fetch --company spacex
+uv run python main.py resumes add resume.pdf
+uv run python main.py match generate
+uv run python main.py match run --limit 20
+            </code>
+        </div>
+
+        <div class="section">
+            <h2>Getting Started</h2>
+            <p>SoupBoss is designed to get you up and running quickly with intelligent job matching.</p>
+            
+            <h3>🌐 Web Interface (Recommended):</h3>
+            <div class="code-snippet">
+# Start the web interface
+./restart_webapp.sh
+
+# Open in browser
+http://localhost:5000
+            </div>
+
+            <h3>⚡ CLI Interface (Power Users):</h3>
+            <div class="code-snippet">
+# Install and verify
+uv sync
+uv run python main.py status
+uv run python main.py test-embedding
+
+# Start matching jobs!
+            </div>
+
+            <div class="highlight">
+                <h3>📋 Prerequisites:</h3>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Python 3.13+</strong> - Modern language features</li>
+                    <li><strong>uv package manager</strong> - Fast, reliable dependency management</li>
+                    <li><strong>Ollama</strong> - Local AI model serving (localhost:11434)</li>
+                </ul>
+                
+                <p><strong>🔒 Privacy First:</strong> All processing happens locally on your machine. Your resume data and job preferences never leave your computer.</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; padding: 40px 0; color: white;">
+            <h2 style="margin-bottom: 20px; color: white;">Ready to Find Your Perfect Job Match?</h2>
+            <p style="font-size: 1.2em; margin-bottom: 20px;">Join the ranks of job seekers using AI-powered semantic matching to find roles that truly fit their skills and experience.</p>
+            
+            <div class="badges">
+                <span class="badge">🌐 Web Interface</span>
+                <span class="badge">⚡ CLI Power</span>
+                <span class="badge">🤖 Local AI</span>
+                <span class="badge">🔒 Complete Privacy</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

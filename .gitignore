@@ -1,5 +1,5 @@
 # ref_data folder - contains reference data that should not be committed
-ref_data/
+# ref_data/
 
 # Python
 __pycache__/
@@ -38,11 +38,11 @@ env.bak/
 venv.bak/
 
 # Database files
-*.db
-*.sqlite
-*.sqlite3
-data/*.db
-data/*.sqlite
+# *.db
+# *.sqlite
+# *.sqlite3
+# data/*.db
+# data/*.sqlite
 
 # IDE
 .vscode/

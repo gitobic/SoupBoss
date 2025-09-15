@@ -1,0 +1,58 @@
+John Smith
+Senior Software Engineer
+
+Contact Information:
+Email: john.smith@email.com
+Phone: (555) 123-4567
+Location: San Francisco, CA
+
+Professional Summary:
+Experienced software engineer with 8+ years in full-stack development, specializing in Python, JavaScript, and cloud technologies. Proven track record of leading teams and delivering scalable solutions for high-traffic applications.
+
+Technical Skills:
+- Programming Languages: Python, JavaScript, TypeScript, Go, SQL
+- Frameworks: Django, React, Node.js, Flask, FastAPI
+- Cloud Platforms: AWS, Google Cloud, Azure
+- Databases: PostgreSQL, MongoDB, Redis
+- DevOps: Docker, Kubernetes, CI/CD, Terraform
+- Tools: Git, JIRA, Jenkins, Linux/Unix
+
+Work Experience:
+
+Senior Software Engineer | TechCorp Inc. | 2020 - Present
+- Led development of microservices architecture serving 1M+ daily active users
+- Designed and implemented real-time data processing pipelines using Python and Kafka
+- Mentored junior developers and conducted code reviews
+- Reduced application response time by 40% through performance optimization
+
+Software Engineer | StartupXYZ | 2018 - 2020
+- Built and maintained web applications using React and Django
+- Implemented automated testing frameworks improving code coverage to 95%
+- Collaborated with product team on feature specification and timeline planning
+- Deployed applications to AWS with auto-scaling capabilities
+
+Junior Developer | DevShop LLC | 2016 - 2018
+- Developed RESTful APIs and frontend components for e-commerce platform
+- Participated in agile development process with 2-week sprint cycles
+- Fixed bugs and implemented feature requests from customer feedback
+- Worked with PostgreSQL databases and wrote optimized queries
+
+Education:
+Bachelor of Science in Computer Science
+University of California, Berkeley | 2016
+GPA: 3.7/4.0
+
+Projects:
+- Open Source Contributor: Contributed to several Python packages on GitHub
+- Personal Project: Built a machine learning model for stock price prediction
+- Hackathon Winner: First place in 2019 Bay Area Tech Hackathon
+
+Certifications:
+- AWS Certified Solutions Architect
+- Google Cloud Professional Developer
+- Scrum Master Certification
+
+Languages:
+- English (Native)
+- Spanish (Conversational)
+- French (Basic)
